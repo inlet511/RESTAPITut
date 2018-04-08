@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Nijia = require('../models/nijia');
 
 //read
 router.get('/nijias', (req, res, next) => {
@@ -10,11 +11,9 @@ router.get('/nijias', (req, res, next) => {
 
 //add new 
 router.post('/nijias', (req, res, next) => {
-    console.log(req.body);
-    res.send({
-        type: 'POST',
-        name:req.body.name,
-        rank:req.body.rank
+    //instantiate an instance and save to database in one stop
+    Nijia.create(req.body).then((nijia)=>{
+        res.send(nijia);
     });
 });
 
