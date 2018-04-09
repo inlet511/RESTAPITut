@@ -1,25 +1,37 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//create geolocation Schema
+const GeoSchema = new Schema({
+    type: {
+        type: String,
+        default: "Point"
+    },
+    coordinates: {
+        type: [Number],
+        index: "2dsphere"
+    }
+});
 
 //create nijia Schema & model
 const NijiaSchema = new Schema({
-    name:{
-        type:String,
-        require:[true,'Name field is required']
+    name: {
+        type: String,
+        required: [true, 'Name field is required']
     },
-    rank:{
-        type:String
+    rank: {
+        type: String
     },
-    available:{
+    available: {
         type: Boolean,
-        default:false
-    }
+        default: false
+    },
 
     //add in geo location
+    geometry:GeoSchema
 
 });
 
-const Nijia = mongoose.model('nijia',NijiaSchema);
+const Nijia = mongoose.model('nijia', NijiaSchema);
 
 module.exports = Nijia;
